@@ -16,13 +16,7 @@
 	[request setURL:url];
 	[request setHTTPMethod:@"GET"];
     
-    
-#ifndef ARC_ENABLED
-    return [request autorelease];
-#else
     return request;
-#endif
-    
 }
 
 + (NSMutableURLRequest*) tbxmlPostRequestWithURL:(NSURL*)url parameters:(NSDictionary*)parameters {
@@ -34,7 +28,7 @@
 	}
 	
 	NSData * postData = [[params componentsJoinedByString:@"&"] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
 	[request setURL:url];
@@ -42,13 +36,7 @@
 	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
 	[request setHTTPBody:postData];
-
-#ifndef ARC_ENABLED
-    [params release];
-    return [request autorelease];
-#else
     return request;
-#endif
 }
 
 @end

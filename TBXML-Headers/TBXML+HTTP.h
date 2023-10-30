@@ -31,5 +31,3 @@ typedef void (^TBXMLAsyncRequestFailureBlock)(NSData *,NSError *);
 - (id)initWithURL:(NSURL*)aURL success:(TBXMLSuccessBlock)successBlock failure:(TBXMLFailureBlock)failureBlock;
 
 @end
-
-
